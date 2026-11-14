@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BadgeCheck, Ban, Check, Fuel, Gauge, Minus, X } from 'lucide-react'
 import type { Checklist, DB } from '../lib/types'
 import { fmtDateTime } from '../lib/utils'
+import { IS_ARTIFACT } from '../lib/env'
 import { Badge, Button, Modal } from './ui'
 
 export function ResultBadge({ result }: { result: Checklist['result'] }) {
@@ -29,7 +30,7 @@ export function ChecklistDetail({ checklist: c, db, onClose, onValidate }: {
       title={<span className="flex items-center gap-2">Checklist de {typeLabel(c.type).toLowerCase()} <ResultBadge result={c.result} /></span>}
       footer={
         <>
-          <Button variant="ghost" onClick={() => window.print()}>Imprimir</Button>
+          {!IS_ARTIFACT && <Button variant="ghost" onClick={() => window.print()}>Imprimir</Button>}
           {onValidate && !c.validated && (
             <Button variant="primary" onClick={() => onValidate(c.id)}><BadgeCheck size={16} /> Validar checklist</Button>
           )}

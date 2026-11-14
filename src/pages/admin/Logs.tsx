@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Download, Search } from 'lucide-react'
 import { useStore } from '../../lib/store'
+import { IS_ARTIFACT } from '../../lib/env'
 import { downloadCSV, fmtDateTime } from '../../lib/utils'
 import { Button, Card, Input, PageHeader } from '../../components/ui'
 
@@ -14,7 +15,7 @@ export function Logs() {
         eyebrow="Gestão"
         title="Logs do sistema"
         sub="Registro de acessos e ações realizadas."
-        action={<Button variant="outline" onClick={() => downloadCSV('logs.csv', [['Quando', 'Evento', 'Responsável', 'Registro'], ...list.map((l) => [fmtDateTime(l.at), l.event, l.actor, l.ref ?? ''])])}><Download size={16} /> Exportar</Button>}
+        action={!IS_ARTIFACT && <Button variant="outline" onClick={() => downloadCSV('logs.csv', [['Quando', 'Evento', 'Responsável', 'Registro'], ...list.map((l) => [fmtDateTime(l.at), l.event, l.actor, l.ref ?? ''])])}><Download size={16} /> Exportar</Button>}
       />
       <div className="relative mb-4 max-w-md">
         <Search size={16} className="absolute top-1/2 left-3.5 -translate-y-1/2 text-muted" />

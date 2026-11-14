@@ -7,6 +7,7 @@ import {
 import { useStore } from '../lib/store'
 import { cx, fmtDateTime } from '../lib/utils'
 import { Logo } from './Logo'
+import { asset } from '../lib/env'
 import { Avatar } from './ui'
 
 interface NavItem { to: string; label: string; icon: ReactNode; end?: boolean; badge?: number }
@@ -149,7 +150,7 @@ export function Layout() {
         <button className="-ml-1 rounded-lg p-2 text-muted hover:bg-surface-2 lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu">
           <Menu size={20} />
         </button>
-        <img src="/logo-iprontomax.png" alt="iProntoMax" className="h-7 rounded-md bg-[#0a1322] px-1.5 py-1 lg:hidden" />
+        <img src={asset('logo-iprontomax.png')} alt="iProntoMax" className="h-7 rounded-md bg-[#0a1322] px-1.5 py-1 lg:hidden" />
         <div className="flex-1" />
         <span className="hidden rounded-full border border-line px-3 py-1 text-[11px] font-bold text-muted sm:inline">
           {isAdmin ? 'Administrador' : 'Técnico'}

@@ -3,7 +3,7 @@ import { CalendarPlus, Clock, MessageSquare, Plus, Search, Trash2, Truck, User a
 import { useStore } from '../../lib/store'
 import type { Pendencia, PendStatus, Priority } from '../../lib/types'
 import { cx, fmtDate, fmtDateTime, today } from '../../lib/utils'
-import { Badge, Button, Field, Input, Modal, PageHeader, Select, Textarea, type Tone } from '../../components/ui'
+import { Badge, Button, ConfirmButton, Field, Input, Modal, PageHeader, Select, Textarea, type Tone } from '../../components/ui'
 
 const COLS: { id: PendStatus; title: string; dot: string }[] = [
   { id: 'aberta', title: 'Abertas', dot: 'bg-danger' },
@@ -167,7 +167,7 @@ function PendView({ p, onClose, onEdit }: { p: Pendencia; onClose: () => void; o
       title={p.title}
       footer={
         <>
-          <Button variant="ghost" className="mr-auto text-danger" onClick={() => { if (confirm('Excluir esta pendência?')) { deletePendencia(p.id); onClose(); toast('Pendência excluída.', 'info') } }}><Trash2 size={16} /> Excluir</Button>
+          <ConfirmButton variant="ghost" className="mr-auto text-danger" confirmLabel="Confirmar exclusão" onConfirm={() => { deletePendencia(p.id); onClose(); toast('Pendência excluída.', 'info') }}><Trash2 size={16} /> Excluir</ConfirmButton>
           <Button variant="outline" onClick={onEdit}>Editar</Button>
           {p.status !== 'resolvida' && <Button variant="primary" onClick={() => { movePendencia(p.id, 'resolvida'); toast('Pendência resolvida.') }}>Marcar como resolvida</Button>}
         </>

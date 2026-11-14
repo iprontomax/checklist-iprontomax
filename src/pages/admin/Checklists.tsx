@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { BadgeCheck, ClipboardList, Download, HardHat, Search, Truck } from 'lucide-react'
 import { useStore } from '../../lib/store'
+import { IS_ARTIFACT } from '../../lib/env'
 import type { Checklist } from '../../lib/types'
 import { addDays, downloadCSV, fmtDate, fmtTime, today } from '../../lib/utils'
 import { ChecklistDetail, ResultBadge, typeLabel } from '../../components/ChecklistDetail'
@@ -53,7 +54,7 @@ export function Checklists() {
         sub={`${list.length} checklists no filtro · ${pendingValidation.length} aguardando validação`}
         action={
           <>
-            <Button variant="outline" onClick={exportCsv}><Download size={16} /> Exportar CSV</Button>
+            {!IS_ARTIFACT && <Button variant="outline" onClick={exportCsv}><Download size={16} /> Exportar CSV</Button>}
             <Button
               variant="primary"
               disabled={!pendingValidation.length}

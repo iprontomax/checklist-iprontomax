@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { Download, Printer } from 'lucide-react'
 import { useStore } from '../../lib/store'
+import { IS_ARTIFACT } from '../../lib/env'
 import { addDays, downloadCSV, fmtDate, parseDate, today } from '../../lib/utils'
 import { Avatar, Button, Card, CardHeader, Field, Input, PageHeader, Progress } from '../../components/ui'
 
@@ -53,7 +54,7 @@ export function Relatorios() {
         eyebrow="Gestão"
         title="Relatórios"
         sub={`Período de ${fmtDate(from)} a ${fmtDate(to)} · ${data.workdays} dias úteis`}
-        action={<><Button variant="outline" onClick={() => window.print()}><Printer size={16} /> Imprimir</Button><Button variant="primary" onClick={exportCsv}><Download size={16} /> Exportar CSV</Button></>}
+        action={!IS_ARTIFACT && <><Button variant="outline" onClick={() => window.print()}><Printer size={16} /> Imprimir</Button><Button variant="primary" onClick={exportCsv}><Download size={16} /> Exportar CSV</Button></>}
       />
       <Card className="no-print animate-in grid gap-4 p-5 sm:grid-cols-2">
         <Field label="De"><Input type="date" value={from} max={to} onChange={(e) => e.target.value && setFrom(e.target.value)} /></Field>

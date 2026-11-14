@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { HardHat, Pencil, Plus, RotateCcw, Trash2, Truck, Users } from 'lucide-react'
 import { useStore } from '../../lib/store'
 import type { CatalogItem, ItemCategory, Role, User, Vehicle, VehicleStatus } from '../../lib/types'
-import { Avatar, Badge, Button, Card, Field, Input, Modal, PageHeader, Segmented, Select, type Tone } from '../../components/ui'
+import { Avatar, Badge, Button, Card, ConfirmButton, Field, Input, Modal, PageHeader, Segmented, Select, type Tone } from '../../components/ui'
 
 type Tab = 'usuarios' | 'veiculos' | 'itens'
 const VSTATUS: Record<VehicleStatus, { label: string; tone: Tone }> = {
@@ -20,7 +20,7 @@ export function Cadastros() {
         eyebrow="Gestão"
         title="Cadastros"
         sub="Usuários, frota e itens que aparecem nos checklists."
-        action={<Button variant="ghost" onClick={() => confirm('Restaurar todos os dados de demonstração? As alterações serão perdidas.') && resetDemo()}><RotateCcw size={16} /> Restaurar demonstração</Button>}
+        action={<ConfirmButton variant="ghost" confirmLabel="Apagar alterações e restaurar?" onConfirm={resetDemo}><RotateCcw size={16} /> Restaurar demonstração</ConfirmButton>}
       />
       <Segmented
         className="mb-5"
@@ -181,7 +181,7 @@ function ItemsTab() {
                     <div className="text-[11px] text-muted">{i.mandatory ? 'Obrigatório · bloqueia a saída' : 'Opcional'}{i.defaultQty != null && ` · qtd ${i.defaultQty}`}</div>
                   </div>
                   <button onClick={() => setF(i)} className="rounded-lg p-1.5 text-muted hover:bg-surface-2 hover:text-fg" aria-label="Editar"><Pencil size={14} /></button>
-                  <button onClick={() => { if (confirm(`Remover "${i.name}" dos checklists?`)) { removeItem(i.id); toast('Item removido.', 'info') } }} className="rounded-lg p-1.5 text-muted hover:bg-danger-soft hover:text-danger" aria-label="Remover"><Trash2 size={14} /></button>
+                  <ConfirmButton size="sm" variant="ghost" className="px-2 hover:text-danger" confirmLabel="Remover?" aria-label="Remover" onConfirm={() => { removeItem(i.id); toast('Item removido.', 'info') }}><Trash2 size={14} /></ConfirmButton>
                 </li>
               ))}
             </ul>

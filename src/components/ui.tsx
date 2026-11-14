@@ -1,4 +1,4 @@
-import { useEffect, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react'
+import { useEffect, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react'
 import { X } from 'lucide-react'
 import { cx } from '../lib/utils'
 
@@ -26,6 +26,22 @@ export function Button({
     >
       {children}
     </button>
+  )
+}
+
+/** Botão que pede um segundo clique para confirmar ações destrutivas. */
+export function ConfirmButton({ onConfirm, confirmLabel = 'Clique de novo para confirmar', children, ...rest }:
+  Omit<Parameters<typeof Button>[0], 'onClick'> & { onConfirm: () => void; confirmLabel?: string }) {
+  const [armed, setArmed] = useState(false)
+  useEffect(() => {
+    if (!armed) return
+    const t = setTimeout(() => setArmed(false), 4000)
+    return () => clearTimeout(t)
+  }, [armed])
+  return (
+    <Button {...rest} onClick={() => (armed ? (setArmed(false), onConfirm()) : setArmed(true))}>
+      {armed ? confirmLabel : children}
+    </Button>
   )
 }
 
