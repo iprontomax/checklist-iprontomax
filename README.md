@@ -4,6 +4,9 @@ Sistema de checklist diário dos técnicos da **iProntoMax** (provedor de intern
 para a rota, o técnico confere EPIs, materiais e o veículo. Se algum item obrigatório estiver com problema,
 a saída é **bloqueada** e uma **pendência** é aberta automaticamente para a administração.
 
+**Site no ar:** https://iprontomax.github.io/checklist-iprontomax/ — publicado automaticamente pelo GitHub Pages
+a cada envio para a branch `main` (veja `.github/workflows/deploy.yml`).
+
 ## Funcionalidades
 
 **Técnico**

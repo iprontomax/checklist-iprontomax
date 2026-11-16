@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:artifact": "vite build --mode artifact",
+    "build:pages": "vite build --mode pages",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
